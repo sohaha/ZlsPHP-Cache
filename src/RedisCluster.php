@@ -1,5 +1,7 @@
 <?php
+
 namespace Zls\Cache;
+
 /**
  * Zls_Cache_RedisCluster
  * @author      影浅-Seekwe
@@ -22,10 +24,10 @@ namespace Zls\Cache;
 //        'prefix'       => null, //Z::server('HTTP_HOST')
 //    ),
 //),
-use Z;
 class RedisCluster implements \Zls_Cache
 {
     private $config, $handle;
+
     public function __construct($config)
     {
         if (!is_null($config['prefix']) && ($config['prefix']{strlen($config['prefix']) - 1} != ':')) {
@@ -33,20 +35,26 @@ class RedisCluster implements \Zls_Cache
         }
         $this->config = $config;
     }
+
     public function reset()
     {
         $this->handle = null;
+
         return $this;
     }
+
     public function clean()
     {
         throw new \Zls_Exception_500('clean method not supported of \Zls\Cache\Redis\Cluster ');
     }
+
     public function delete($key)
     {
         $this->_init();
+
         return $this->handle->del($key);
     }
+
     private function _init()
     {
         if (empty($this->handle)) {
@@ -57,16 +65,19 @@ class RedisCluster implements \Zls_Cache
             }
         }
     }
+
     public function get($key)
     {
         $this->_init();
         if ($rawData = $this->handle->get($key)) {
             $data = @unserialize($rawData);
+
             return $data ? $data : $rawData;
         } else {
             return null;
         }
     }
+
     public function set($key, $value, $cacheTime = 0)
     {
         $this->_init();
@@ -77,9 +88,11 @@ class RedisCluster implements \Zls_Cache
             return $this->handle->set($key, $value);
         }
     }
+
     public function &instance($key = null, $isRead = true)
     {
         $this->_init();
+
         return $this->handle;
     }
 }
