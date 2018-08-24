@@ -3,17 +3,21 @@
 namespace Zls\Cache;
 
 /**
- * Zls_Cache_Redis
+ * Zls_Cache_Redis.
+ *
  * @author        影浅
  * @email         seekwe@gmail.com
+ *
  * @copyright     Copyright (c) 2015 - 2017, 影浅, Inc.
- * @link          ---
+ *
+ * @see          ---
  * @since         v0.0.1
  * @updatetime    2017-03-09 12:58
  */
 class Redis implements \Zls_Cache
 {
-    private $config, $servers;
+    private $config;
+    private $servers;
 
     public function __construct($config)
     {
@@ -46,7 +50,7 @@ class Redis implements \Zls_Cache
     private function &connect($config)
     {
         $redis = new \Redis();
-        if ($config['type'] == 'sock') {
+        if ('sock' == $config['type']) {
             $redis->connect($config['sock']);
         } else {
             $redis->connect($config['host'], $config['port'], $config['timeout'], $config['retry']);
@@ -55,7 +59,7 @@ class Redis implements \Zls_Cache
             $redis->auth($config['password']);
         }
         if (!is_null($config['prefix'])) {
-            if ($config['prefix']{strlen($config['prefix']) - 1} != ':') {
+            if ($config['prefix'][strlen($config['prefix']) - 1] != ':') {
                 $config['prefix'] .= ':';
             }
             $redis->setOption(Redis::OPT_PREFIX, $config['prefix']);
@@ -74,13 +78,13 @@ class Redis implements \Zls_Cache
 
     private function &selectNode($key, $isRead)
     {
-        $nodeIndex = sprintf("%u", crc32($key)) % count($this->config);
+        $nodeIndex = sprintf('%u', crc32($key)) % count($this->config);
         if ($isRead) {
             $slaveIndex = array_rand($this->config[$nodeIndex]['slaves']);
-            $serverKey = $nodeIndex . '-slaves-' . $slaveIndex;
+            $serverKey = $nodeIndex.'-slaves-'.$slaveIndex;
             $config = $this->config[$nodeIndex]['slaves'][$slaveIndex];
         } else {
-            $serverKey = $nodeIndex . '-master';
+            $serverKey = $nodeIndex.'-master';
             $config = $this->config[$nodeIndex]['master'];
         }
         if (empty($this->servers[$serverKey])) {

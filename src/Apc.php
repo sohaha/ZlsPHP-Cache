@@ -3,7 +3,8 @@
 namespace Zls\Cache;
 
 /**
- * Zls_Cache_Apc
+ * Zls_Cache_Apc.
+ *
  * @author      影浅-Seekwe
  * @email       seekwe@gmail.com
  * Date:        17/2/3
@@ -18,7 +19,7 @@ class Apc implements \Zls_Cache
     public function clean()
     {
         @apc_clear_cache();
-        @apc_clear_cache("user");
+        @apc_clear_cache('user');
 
         return true;
     }
@@ -31,7 +32,7 @@ class Apc implements \Zls_Cache
     public function get($key)
     {
         $data = apc_fetch($key, $bo);
-        if ($bo === false) {
+        if (false === $bo) {
             return null;
         }
 

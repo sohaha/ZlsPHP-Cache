@@ -3,7 +3,8 @@
 namespace Zls\Cache;
 
 /**
- * Zls_Cache_RedisCluster
+ * Zls_Cache_RedisCluster.
+ *
  * @author      影浅-Seekwe
  * @email       seekwe@gmail.com
  * Date:        17/2/3
@@ -26,11 +27,12 @@ namespace Zls\Cache;
 //),
 class RedisCluster implements \Zls_Cache
 {
-    private $config, $handle;
+    private $config;
+    private $handle;
 
     public function __construct($config)
     {
-        if (!is_null($config['prefix']) && ($config['prefix']{strlen($config['prefix']) - 1} != ':')) {
+        if (!is_null($config['prefix']) && ($config['prefix'][strlen($config['prefix']) - 1] != ':')) {
             $config['prefix'] .= ':';
         }
         $this->config = $config;

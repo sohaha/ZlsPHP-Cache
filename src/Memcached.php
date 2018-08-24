@@ -3,7 +3,8 @@
 namespace Zls\Cache;
 
 /**
- * Zls_Cache_Memcached
+ * Zls_Cache_Memcached.
+ *
  * @author      影浅-Seekwe
  * @email       seekwe@gmail.com
  * Date:        17/2/3
@@ -17,7 +18,8 @@ namespace Zls\Cache;
 //),
 class Memcached implements \Zls_Cache
 {
-    private $config, $handle;
+    private $config;
+    private $handle;
 
     public function __construct($config)
     {
