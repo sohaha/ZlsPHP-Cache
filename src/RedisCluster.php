@@ -63,7 +63,7 @@ class RedisCluster implements \Zls_Cache
             $this->handle = new \RedisCluster(null, $this->config['hosts'], $this->config['timeout'],
                 $this->config['read_timeout'], $this->config['persistent']);
             if ($this->config['prefix']) {
-                $this->handle->setOption(RedisCluster::OPT_PREFIX, $this->config['prefix']);
+                $this->handle->setOption(\RedisCluster::OPT_PREFIX, $this->config['prefix']);
             }
         }
     }

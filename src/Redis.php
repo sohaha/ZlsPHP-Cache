@@ -62,7 +62,7 @@ class Redis implements \Zls_Cache
             if ($config['prefix'][strlen($config['prefix']) - 1] != ':') {
                 $config['prefix'] .= ':';
             }
-            $redis->setOption(Redis::OPT_PREFIX, $config['prefix']);
+            $redis->setOption(\Redis::OPT_PREFIX, $config['prefix']);
         }
         $redis->select($config['db']);
 
