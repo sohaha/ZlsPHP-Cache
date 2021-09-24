@@ -4,11 +4,6 @@ namespace Zls\Cache;
 
 /**
  * Zls_Cache_Memcached.
- *
- * @author      影浅-Seekwe
- * @email       seekwe@gmail.com
- * Date:        17/2/3
- * Time:        19:43
  */
 //'memcached'     => array(
 //    'class'  => 'Zls_Cache_Memcached',

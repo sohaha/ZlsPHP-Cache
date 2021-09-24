@@ -4,11 +4,6 @@ namespace Zls\Cache;
 
 /**
  * Zls_Cache_RedisCluster.
- *
- * @author      影浅-Seekwe
- * @email       seekwe@gmail.com
- * Date:        17/2/3
- * Time:        19:44
  */
 //'redis_cluster' => array(
 //    'class'  => 'Zls_Cache_RedisCluster',
@@ -72,9 +67,7 @@ class RedisCluster implements \Zls_Cache
     {
         $this->_init();
         if ($rawData = $this->handle->get($key)) {
-            $data = @unserialize($rawData);
-
-            return $data ? $data : $rawData;
+            return @unserialize($rawData);
         } else {
             return null;
         }

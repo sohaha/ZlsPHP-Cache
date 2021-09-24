@@ -4,11 +4,6 @@ namespace Zls\Cache;
 
 /**
  * Zls_Cache_Apc.
- *
- * @author      影浅-Seekwe
- * @email       seekwe@gmail.com
- * Date:        17/2/3
- * Time:        19:42
  */
 //'apc'           => array(
 //    'class'  => 'Zls_Cache_Apc',

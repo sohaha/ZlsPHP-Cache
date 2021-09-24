@@ -2,17 +2,10 @@
 
 namespace Zls\Cache;
 
+use Z;
+
 /**
  * Zls_Cache_Redis.
- *
- * @author        影浅
- * @email         seekwe@gmail.com
- *
- * @copyright     Copyright (c) 2015 - 2017, 影浅, Inc.
- *
- * @see          ---
- * @since         v0.0.1
- * @updatetime    2017-03-09 12:58
  */
 class Redis implements \Zls_Cache
 {
@@ -81,10 +74,10 @@ class Redis implements \Zls_Cache
         $nodeIndex = sprintf('%u', crc32($key)) % count($this->config);
         if ($isRead) {
             $slaveIndex = array_rand($this->config[$nodeIndex]['slaves']);
-            $serverKey = $nodeIndex.'-slaves-'.$slaveIndex;
+            $serverKey = $nodeIndex . '-slaves-' . $slaveIndex;
             $config = $this->config[$nodeIndex]['slaves'][$slaveIndex];
         } else {
-            $serverKey = $nodeIndex.'-master';
+            $serverKey = $nodeIndex . '-master';
             $config = $this->config[$nodeIndex]['master'];
         }
         if (empty($this->servers[$serverKey])) {
@@ -98,9 +91,7 @@ class Redis implements \Zls_Cache
     {
         $redis = $this->selectNode($key, true);
         if ($rawData = $redis->get($key)) {
-            $data = @unserialize($rawData);
-
-            return $data ? $data : $rawData;
+            return @unserialize($rawData);
         } else {
             return null;
         }
