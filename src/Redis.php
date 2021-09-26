@@ -46,7 +46,11 @@ class Redis implements \Zls_Cache
         if ('sock' == $config['type']) {
             $redis->connect($config['sock']);
         } else {
-            $redis->connect($config['host'], $config['port'], $config['timeout'], $config['retry']);
+            if($config['timeout']){
+                $redis->connect($config['host'], $config['port'], $config['timeout'], $config['retry']);
+            }else{
+                $redis->pconnect($config['host'], $config['port'], 0, null,$config['retry']);
+            }
         }
         if (!is_null($config['password'])) {
             $redis->auth($config['password']);
